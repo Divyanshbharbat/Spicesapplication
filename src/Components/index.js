@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 //   credentials: true, // Allow cookies and other credentials
 // };
 const corsOptions = {
-  origin: 'https://spicesapplication.vercel.app',
+  origin: 'https://spiceswebapplication.vercel.app',
   credentials: true,
 };
 app.use(cors(corsOptions));

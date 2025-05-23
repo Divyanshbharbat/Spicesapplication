@@ -1,0 +1,133 @@
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+#hero{
+  background: #360033;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #0b8793, #360033);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #0b8793, #360033); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+/* Card Enhancements */
+.card {
+  border: none;
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Button Styles */
+button, .btn {
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  transition: background 0.4s ease, transform 0.2s ease-in-out;
+}
+.btn-success {
+  background: linear-gradient(90deg, #38ef7d, #11998e);
+  border: none;
+}
+.btn-success:hover {
+  background: linear-gradient(90deg, #11998e, #38ef7d);
+  transform: scale(1.05);
+}
+.btn-danger:hover {
+  background: linear-gradient(90deg, #f85032, #e73827);
+  transform: scale(1.05);
+}
+.btn-outline-light:hover {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: white !important;
+}
+
+/* Form Enhancements */
+form input, form select, form textarea {
+  border-radius: 12px;
+  padding: 0.75rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+form input:focus, form select:focus, form textarea:focus {
+  border-color: #38ef7d;
+  box-shadow: 0 0 0 0.25rem rgba(56, 239, 125, 0.3);
+}
+
+/* Section Spacing */
+.section {
+  padding: 5rem 0;
+}
+
+/* Card Title */
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* Gradient Background Example */
+.hero-gradient {
+  background: linear-gradient(90deg, #d4fc79 0%, #96e6a1 100%);
+}
+
+/* For shadow consistency */
+.shadow-custom {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+/* Buttons */
+.custom-shop-button, .custom-about-button, .custom-cart-button, .custom-review-button {
+  background: linear-gradient(90deg, #38ef7d 0%, #11998e 100%);
+  border: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 0.6rem 1.2rem;
+}
+
+.custom-shop-button:hover, .custom-about-button:hover, .custom-cart-button:hover, .custom-review-button:hover {
+  background: linear-gradient(90deg, #f9a825 0%, #38ef7d 100%);
+  transform: scale(1.05);
+  color: #fff;
+}
+
+/* Product Cards */
+.custom-product-card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.custom-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #a1ffce 0%, #faffd1 100%);
+}
+
+/* Review Cards */
+.card-body h5 {
+  color: #11998e;
+}
+
+.card-body p {
+  font-style: italic;
+}
+
+/* FAQ and Facts Hover */
+.faq-section h5 {
+  color: #38ef7d;
+  font-weight: 600;
+}
+
+.bg-white.shadow.rounded:hover {
+  background-color: #e9fdf2;
+  transform: scale(1.03);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Brand Logos */
+img.img-fluid.mb-2 {
+  transition: transform 0.3s ease;
+}
+img.img-fluid.mb-2:hover {
+  transform: scale(1.1);
+}

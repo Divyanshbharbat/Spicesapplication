@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 //   credentials: true, // Allow cookies and other credentials
 // };
 const corsOptions = {
-  origin: 'https://spicesapplication.netlify.app',
+  origin: 'https://Spicesapplication.vercel.app',
   credentials: true,
 };
 app.use(cors(corsOptions));

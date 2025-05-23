@@ -9,7 +9,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
-import './home.css';
+import './Home.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

@@ -41,7 +41,7 @@ const Home = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get(`${import.meta.VITE_APP}/gethomedata`);
+      const res = await axios.get(`${import.meta.env.VITE_APP}/gethomedata`);
       console.log(res.data)
       setProducts(res.data);
     } catch (error) {
@@ -52,7 +52,7 @@ const Home = () => {
   const fetchReviews = async () => {
     try {
       // const res = await axios.get('http://localhost:3000/api/reviews');
-      const res = await axios.get(`${import.meta.VITE_APP}/api/reviews`);
+      const res = await axios.get(`${import.meta.env.VITE_APP}/api/reviews`);
       setReviews(res.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -63,7 +63,7 @@ const Home = () => {
     e.preventDefault();
     if (!token) return toast.error('You must be logged in to leave a review.');
     try {
-        await axios.post(`${import.meta.VITE_APP}/api/reviews/add`, { comment, rating }, { headers: { Authorization: `Bearer ${token}` } });
+        await axios.post(`${import.meta.env.VITE_APP}/api/reviews/add`, { comment, rating }, { headers: { Authorization: `Bearer ${token}` } });
       toast.success('Review added successfully');
       setComment('');
       setRating(5);
@@ -76,7 +76,7 @@ const Home = () => {
   const addToCart = async (product) => {
     if (!token) return toast.error('Please login to add products to cart');
     try {
-      const response = await axios.post(`${import.meta.VITE_APP}/api/cart/add`, { product }, { headers: { Authorization: `Bearer ${token}` } });
+      const response = await axios.post(`${import.meta.env.VITE_APP}/api/cart/add`, { product }, { headers: { Authorization: `Bearer ${token}` } });
       toast.success(response.data.message || 'Successfully Added');
     } catch {
       toast.error('Failed to add product to cart.');

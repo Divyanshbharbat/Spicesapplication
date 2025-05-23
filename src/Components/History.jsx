@@ -16,7 +16,7 @@ const History = ({ token }) => {
         // const res = await axios.get("http://localhost:3000/api/orders/history", {
         //   headers: { Authorization: `Bearer ${storedToken}` },
         // });
-        const res = await axios.get(`${import.meta.VITE_APP}/api/orders/history`, {
+        const res = await axios.get(`${import.meta.env.VITE_APP}/api/orders/history`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         });
         setOrders(res.data.orders);

@@ -15,7 +15,7 @@ const AppNavbar = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      axios.get(`${import.meta.VITE_APP}/api/cart/count`, {
+      axios.get(`${import.meta.env.VITE_APP}/api/cart/count`, {
         headers: { Authorization: `Bearer ${storedToken}` },
         withCredentials: true,
       })

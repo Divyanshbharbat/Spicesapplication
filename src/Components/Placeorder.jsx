@@ -16,7 +16,7 @@ const PlaceOrder = ({ token }) => {
     const fetchCart = async () => {
       try {
         const storedToken = token || localStorage.getItem('cookie');
-        const res = await axios.get(`${import.meta.VITE_APP}/api/cart`, {
+        const res = await axios.get(`${import.meta.env.VITE_APP}/api/cart`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         });
         setCart(res.data.cart);
@@ -59,7 +59,7 @@ const PlaceOrder = ({ token }) => {
       try {
         const storedToken = token || localStorage.getItem('cookie');
         await axios.post(
-          `${import.meta.VITE_APP}/api/placeorder`,
+          `${import.meta.env.VITE_APP}/api/placeorder`,
           { username, email, address, phone, payment, cart },
           {
             headers: { Authorization: `Bearer ${storedToken}` },

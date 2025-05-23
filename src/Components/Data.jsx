@@ -18,7 +18,7 @@ const Data = () => {
       }
       setLoading(true);
       await axios.post(
-     `${import.meta.VITE_APP}/api/cart/add`,
+     `${import.meta.env.VITE_APP}/api/cart/add`,
         // 'http://localhost:3000/api/cart/add',
         { product },
         { headers: { Authorization: `Bearer ${token}` } }
@@ -35,7 +35,7 @@ const Data = () => {
   const getData = async () => {
     try {
       // const res = await axios.get("http://localhost:3000/gethomedata");
-      const res = await axios.get(`${import.meta.VITE_APP}/gethomedata`);
+      const res = await axios.get(`${import.meta.env.VITE_APP}/gethomedata`);
       setCart(res.data);
     } catch (err) {
       console.log(err);

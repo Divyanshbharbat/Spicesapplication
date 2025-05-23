@@ -21,7 +21,7 @@ const AddToCart = () => {
 
  const fetchCart = async () => {
   try {
-    const res = await axios.get(`${import.meta.VITE_APP}/api/cart`, {
+    const res = await axios.get(`${import.meta.env.VITE_APP}/api/cart`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     // Ensure res.data.cart is an array
@@ -39,7 +39,7 @@ const AddToCart = () => {
   const updateQuantity = async (id, action) => {
     try {
       await axios.post(
-        `${import.meta.VITE_APP}/api/cart/update`,
+        `${import.meta.env.VITE_APP}/api/cart/update`,
         { id, action },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -54,7 +54,7 @@ const AddToCart = () => {
       // await axios.delete(`http://localhost:3000/api/cart/${id}`, {
       //   headers: { Authorization: `Bearer ${token}` }
       // });
-      await axios.delete(`${import.meta.VITE_APP}/api/cart/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_APP}/api/cart/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       toast.success('Item removed from cart');
@@ -69,7 +69,7 @@ const AddToCart = () => {
     try {
       const res = await axios.post(
         // 'http://localhost:3000/api/order/place',
-        `${import.meta.VITE_APP}/api/order/place`,
+        `${import.meta.env.VITE_APP}/api/order/place`,
         
         { headers: { Authorization: `Bearer ${token}` } }
       );

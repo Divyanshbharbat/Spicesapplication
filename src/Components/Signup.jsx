@@ -24,7 +24,7 @@ console.log(`${import.meta.env.VITE_APP}`)
   const onSubmit = async (data) => {
     try {
       
-      const response = await axios.post(`${import.meta.VITE_APP}/signup`, data,{
+      const response = await axios.post(`${import.meta.env.VITE_APP}/signup`, data,{
         withCredentials:true,
       });
       if (response.data === 'success') {

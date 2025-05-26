@@ -53,7 +53,7 @@ const data = [
 //  console.log(t)
 // }
 // y()
-// mongoose.connect("mongodb+srv://bharbatdivyansh1:bharbatdivyansh1@cluster0.h9b4ii8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+// mongoose.connect("mongodb+srv://bharbatdivyansh1:bharbatdivyansh1@cluster0.jmnfiow.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 //   .then(() => console.log("MongoDB connected successfully"))
 //   .catch(err => console.error("MongoDB connection error", err));
 

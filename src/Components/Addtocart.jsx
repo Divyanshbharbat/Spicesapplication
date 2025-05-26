@@ -27,6 +27,7 @@ const AddToCart = () => {
     // Ensure res.data.cart is an array
     if (Array.isArray(res.data.cart)) {
       setCart(res.data.cart);
+      console.log(res.data.cart)
     } else {
       setCart([]);  // fallback empty array
     }

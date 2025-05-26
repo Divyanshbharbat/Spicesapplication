@@ -15,12 +15,13 @@ const AppNavbar = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      axios.get(`${import.meta.env.VITE_APP}/api/cart/count`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-        withCredentials: true,
-      })
-      .then((res) => setCartCount(res.data.count))
-      .catch(() => setCartCount(0));
+      axios
+        .get(`${import.meta.env.VITE_APP}/api/cart/count`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+          withCredentials: true,
+        })
+        .then((res) => setCartCount(res.data.count))
+        .catch(() => setCartCount(0));
     } else {
       setCartCount(0);
     }
@@ -32,11 +33,11 @@ const AppNavbar = () => {
     navigate('/login');
   };
 
-  // Close navbar when clicking any nav link or button inside collapsed menu
   const closeNavbar = () => setExpanded(false);
 
   return (
-    <Navbar id='navbar'
+    <Navbar
+      id="navbar"
       expanded={expanded}
       onToggle={setExpanded}
       expand="lg"
@@ -46,7 +47,13 @@ const AppNavbar = () => {
       collapseOnSelect
     >
       <Container>
-        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center" onClick={closeNavbar}>
+        {/* Brand logo */}
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          className="d-flex align-items-center"
+          onClick={closeNavbar}
+        >
           <img
             src="https://img.freepik.com/free-vector/spices-herbs-tag-decorated-with-leaves-dill-basil-bay-powder-curry-paprika-realistic-illustration_1284-61200.jpg?ga=GA1.1.81057377.1744463214&semt=ais_hybrid&w=740"
             alt="Spice Logo"
@@ -57,74 +64,92 @@ const AppNavbar = () => {
           <span className="fw-bold fs-4">SpiceShop</span>
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        {/* Right-side: Products, Auth, Cart, Toggle */}
+        <div className="d-flex align-items-center order-lg-2 ms-auto gap-3">
+          {/* Products link */}
+          <Nav.Link
+            as={Link}
+            to="/products"
+            className="nav-link-custom text-white"
+            onClick={closeNavbar}
+          >
+            Products
+          </Nav.Link>
 
+          {/* Auth buttons */}
+          {isLoggedIn ? (
+            <Button
+              className="auth-btn logout-btn text-white px-3 py-1"
+              style={{ backgroundColor: '#006eff', border: 'none' }}
+              onClick={() => {
+                handleLogout();
+                closeNavbar();
+              }}
+            >
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button
+                variant="outline-light"
+                className="auth-btn text-white px-3 py-1"
+                as={Link}
+                to="/login"
+                onClick={closeNavbar}
+              >
+                Login
+              </Button>
+              <Button
+                variant="light"
+                className="auth-btn px-3 py-1"
+                as={Link}
+                to="/signup"
+                onClick={closeNavbar}
+              >
+                Signup
+              </Button>
+            </>
+          )}
+
+          {/* Cart icon */}
+          <Nav.Link
+            as={Link}
+            to="/addtocart"
+            className="nav-link-custom position-relative text-white"
+            onClick={closeNavbar}
+          >
+            <FaShoppingCart className="fs-4" />
+            {cartCount > 0 && (
+              <Badge
+                pill
+                bg="danger"
+                className="position-absolute top-0 start-100 translate-middle"
+                style={{ fontSize: '0.7rem' }}
+              >
+                {cartCount}
+              </Badge>
+            )}
+          </Nav.Link>
+
+          {/* Toggle for mobile */}
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        </div>
+
+        {/* Collapsible nav items */}
         <Navbar.Collapse id="basic-navbar-nav" className="custom-collapse">
           <Nav className="me-auto text-center">
-            {["home", "products", "about", "contact"].map((path, i) => (
+            {/* "Products" excluded here since it's always visible */}
+            {['home', 'about', 'contact'].map((path, i) => (
               <Nav.Link
                 key={i}
                 as={Link}
                 to={`/${path}`}
                 className="nav-link-custom"
-                onClick={closeNavbar}  // close on click
+                onClick={closeNavbar}
               >
                 {path.charAt(0).toUpperCase() + path.slice(1)}
               </Nav.Link>
             ))}
-            <Nav.Link
-              as={Link}
-              to="/addtocart"
-              className="nav-link-custom position-relative"
-              onClick={closeNavbar} // close on click
-            >
-              <FaShoppingCart className="me-1 fs-4" />
-              {cartCount > 0 && (
-                <Badge
-                  pill
-                  bg="danger"
-                  className="position-absolute top-0 start-100 translate-middle"
-                  style={{ fontSize: '0.7rem' }}
-                >
-                  {cartCount}
-                </Badge>
-              )}
-            </Nav.Link>
-          </Nav>
-
-          <Nav className="text-center">
-            {isLoggedIn ? (
-              <Button
-                className="auth-btn logout-btn"
-                onClick={() => {
-                  handleLogout();
-                  closeNavbar();
-                }}
-              >
-                Logout
-              </Button>
-            ) : (
-              <>
-                <Button
-                  variant="outline-light"
-                  className="me-2 auth-btn text-white"
-                  as={Link}
-                  to="/login"
-                  onClick={closeNavbar}
-                >
-                  Login
-                </Button>
-                <Button
-                  variant="light"
-                  className="auth-btn"
-                  as={Link}
-                  to="/signup"
-                  onClick={closeNavbar}
-                >
-                  Signup
-                </Button>
-              </>
-            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -49,7 +49,8 @@ const jwtMiddleware = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, "divyansh");
-    req.user = decoded; // Attach the decoded token to the request object
+    req.user = decoded;
+    console.log(req.user) // Attach the decoded token to the request object
     // Log user info for debugging
     next(); // Proceed with the next middleware
   } catch (error) {
@@ -70,9 +71,9 @@ app.post("/signup", async (req, res) => {
 
   try {
     const existingUser = await User.findOne({ email });
-
+console.log(existingUser)
     if (existingUser) {
-      return res.status(400).json({ error: "Email already exists" });
+        return res.send("fail");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -88,7 +89,7 @@ app.post("/signup", async (req, res) => {
 
 // Login route
 app.post("/login", async (req, res) => {
-  console.log(req.body)
+
   const { username, password } = req.body;
 
   try {
@@ -323,7 +324,7 @@ app.post('/api/placeorder', jwtMiddleware, async (req, res) => {
   try {
     const username = req.user.username;
     const { cart, address, phone } = req.body;
-
+console.log(cart)
     if (!cart || cart.length === 0)
       return res.status(400).json({ message: 'Cart is empty' });
 
@@ -376,12 +377,12 @@ app.post('/api/placeorder', jwtMiddleware, async (req, res) => {
     });
 
     const savedOrder = await order.save();
-console.log(savedOrder)
+
     // 📦 Update user & clear cart
     user.orders.push(savedOrder._id);
     user.cart = [];
    let r= await user.save();
-console.log("saved",r)
+
     res.json({ message: 'Order placed successfully. Confirmation email sent.', orderId: savedOrder._id });
   } catch (error) {
     console.error('Order placement error:', error);
@@ -538,7 +539,7 @@ app.delete('/api/cart/:id', jwtMiddleware, async (req, res) => {
 // mongodb://localhost:27017
 // Connect to MongoDB
 // mongoose.connect(process.env.VITE_URLS)
-mongoose.connect(process.env.VITE_URL)
+mongoose.connect("mongodb://localhost:27017/powder")
   .then(() => console.log("MongoDB connected successfully"))
   .catch(err => console.error("MongoDB connection error", err));
 

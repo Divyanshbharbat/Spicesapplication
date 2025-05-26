@@ -20,7 +20,7 @@ useEffect(()=>{
     navigate("/home")
   }
 },[])
-console.log(`${import.meta.env.VITE_APP}`)
+
   const onSubmit = async (data) => {
     try {
       
@@ -31,8 +31,13 @@ console.log(`${import.meta.env.VITE_APP}`)
         toast.success("Account created successfully 🎉");
         setTimeout(() => navigate("/login"), 1000);
       }
+      if (response.data === 'fail') {
+        toast.error("Email already Exists ");
+        
+      }
+     
     } catch (error) {
-      toast.error("Email is already registered ❌");
+      toast.error("Something went wrong❌");
       console.error(error);
     }
   };

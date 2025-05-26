@@ -20,7 +20,7 @@ const AppNavbar = () => {
           withCredentials: true,
         })
         .then((res) => setCartCount(res.data.count))
-        console.log(res.data.count)
+      
         .catch(() => setCartCount(0));
     } else {
       setCartCount(0);

@@ -540,7 +540,7 @@ app.delete('/api/cart/:id', jwtMiddleware, async (req, res) => {
 // mongodb://localhost:27017
 // Connect to MongoDB
 // mongoose.connect(process.env.VITE_URLS)
-mongoose.connect("mongodb://localhost:27017/powder")
+mongoose.connect(process.env.VITE_URL)
   .then(() => console.log("MongoDB connected successfully"))
   .catch(err => console.error("MongoDB connection error", err));
 

@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 //   origin: 'http://localhost:5173', // Replace with your frontend's origin
 //   credentials: true, // Allow cookies and other credentials
 // };
-=
+
 // app.use(cookieParser());
 const corsOptions = {
   origin: 'https://spiceswebapplication.vercel.app',

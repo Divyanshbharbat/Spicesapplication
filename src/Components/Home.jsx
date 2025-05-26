@@ -94,7 +94,7 @@ const Home = () => {
           <p className="lead">Handpicked Dhaniya, Haldi & Herbal Powders delivered fresh to your kitchen.</p>
           <div className="mt-4">
             <Button className="me-3 custom-shop-button">
-              <NavLink to="/shop" className="text-white text-decoration-none my-4">Shop Now</NavLink>
+              <NavLink to="/products" className="text-white text-decoration-none my-4">Shop Now</NavLink>
             </Button>
             <Button className="custom-about-button my-3">
               <NavLink to="/about" className="text-white text-decoration-none">Know Our Story</NavLink>

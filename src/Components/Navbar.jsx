@@ -15,12 +15,12 @@ const AppNavbar = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      axios
-        .get(`${import.meta.env.VITE_APP}/api/cart/count`, {
+      axios.get(`${import.meta.env.VITE_APP}/api/cart/count`, {
           headers: { Authorization: `Bearer ${storedToken}` },
           withCredentials: true,
         })
         .then((res) => setCartCount(res.data.count))
+        console.log(res.data.count)
         .catch(() => setCartCount(0));
     } else {
       setCartCount(0);

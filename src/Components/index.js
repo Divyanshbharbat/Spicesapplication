@@ -32,14 +32,14 @@ app.use(express.urlencoded({ extended: true }));
 //   origin: 'http://localhost:5173', // Replace with your frontend's origin
 //   credentials: true, // Allow cookies and other credentials
 // };
-app.use(cors(corsOptions));
+=
 // app.use(cookieParser());
 const corsOptions = {
   origin: 'https://spiceswebapplication.vercel.app',
   credentials: true,
 };
 
-
+app.use(cors(corsOptions));
 // JWT Middleware for regular user
 const jwtMiddleware = (req, res, next) => {
   const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];

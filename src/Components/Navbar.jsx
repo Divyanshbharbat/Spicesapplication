@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import axios from 'axios';
 import './Navbar.css';
-
+import { Helmet } from 'react-helmet';
 const AppNavbar = () => {
   const navigate = useNavigate();
   const storedToken = localStorage.getItem('cookie');
@@ -36,6 +36,15 @@ const AppNavbar = () => {
   const closeNavbar = () => setExpanded(false);
 
   return (
+    
+    <>
+    <Helmet>
+        <title>SpiceShop - Best Organic Spices</title>
+        <meta name="description" content="Buy the best organic and fresh spices at SpiceShop. Secure checkout, fast delivery." />
+        <meta name="keywords" content="Spices, Organic Spices, Buy Spices Online, Masala, Herbs, Indian Spices" />
+        <meta name="author" content="SpiceShop Team" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Helmet>
     <Navbar
       id="navbar"
       expanded={expanded}
@@ -46,6 +55,7 @@ const AppNavbar = () => {
       sticky="top"
       collapseOnSelect
     >
+      
       <Container>
         {/* Brand logo */}
         <Navbar.Brand
@@ -154,6 +164,7 @@ const AppNavbar = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </>
   );
 };
 

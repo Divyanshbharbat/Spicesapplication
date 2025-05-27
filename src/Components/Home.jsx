@@ -10,7 +10,7 @@ import { Pie } from 'react-chartjs-2';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
 import './Home.css';
-
+import Meta from './Meta'
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Home = () => {

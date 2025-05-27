@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const PlaceOrder = ({ token }) => {
   const [cart, setCart] = useState([]);
@@ -13,6 +15,8 @@ const PlaceOrder = ({ token }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    AOS.init({ duration: 800 });
+
     const fetchCart = async () => {
       try {
         const storedToken = token || localStorage.getItem('cookie');
@@ -31,6 +35,13 @@ const PlaceOrder = ({ token }) => {
 
   const calculateTotal = () => {
     return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  };
+
+  const updateQuantity = (index, change) => {
+    const updatedCart = [...cart];
+    updatedCart[index].quantity += change;
+    if (updatedCart[index].quantity < 1) updatedCart[index].quantity = 1;
+    setCart(updatedCart);
   };
 
   const handlePlaceOrder = async () => {
@@ -80,10 +91,10 @@ const PlaceOrder = ({ token }) => {
   };
 
   return (
-    <div className="container my-5">
+    <div className="container my-5" data-aos="fade-up">
       <div className="row justify-content-center">
         <div
-          className="col-md-6 p-5 rounded shadow-lg"
+          className="col-md-8 p-5 rounded shadow-lg"
           style={{
             background: 'linear-gradient(135deg, #00c9ff 0%, #92fe9d 100%)',
             color: '#ffffff',
@@ -96,10 +107,10 @@ const PlaceOrder = ({ token }) => {
             Place Your Order
           </h2>
 
-          {[ 
+          {[
             { label: 'Username', value: username, setter: setUsername, type: 'text' },
             { label: 'Email', value: email, setter: setEmail, type: 'email' },
-            { label: 'Phone', value: phone, setter: setPhone, type: 'text' }
+            { label: 'Phone', value: phone, setter: setPhone, type: 'text' },
           ].map(({ label, value, setter, type }) => (
             <div className="mb-3" key={label}>
               <label className="form-label" style={{ fontWeight: '600', color: '#fff' }}>
@@ -140,7 +151,7 @@ const PlaceOrder = ({ token }) => {
             />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-4">
             <label className="form-label" style={{ fontWeight: '600', color: '#fff' }}>
               Payment Method
             </label>
@@ -158,7 +169,7 @@ const PlaceOrder = ({ token }) => {
             />
           </div>
 
-          <h5 className="mt-4 mb-3" style={{ borderBottom: '1px solid #fff', paddingBottom: '5px', color: '#fff' }}>
+          <h5 className="mb-3" style={{ borderBottom: '1px solid #fff', paddingBottom: '5px', color: '#fff' }}>
             Cart Summary:
           </h5>
           <ul className="list-group mb-4">
@@ -184,18 +195,55 @@ const PlaceOrder = ({ token }) => {
                       marginRight: '12px',
                     }}
                   />
-                  <span>
-                    {item.name} (x{item.quantity})
-                  </span>
+                  <div>
+                    <div>{item.name}</div>
+                    <div className="mt-1 d-flex align-items-center">
+                      <button
+                        onClick={() => updateQuantity(idx, -1)}
+                        style={{
+                          background: 'linear-gradient(45deg, #ff416c, #ff4b2b)',
+                          border: 'none',
+                          color: '#fff',
+                          padding: '6px 14px',
+                          borderRadius: '8px',
+                          fontSize: '18px',
+                          fontWeight: 'bold',
+                          marginRight: '8px',
+                          transition: 'transform 0.2s ease',
+                        }}
+                        onMouseEnter={(e) => (e.target.style.transform = 'scale(1.1)')}
+                        onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
+                      >
+                        -
+                      </button>
+                      <span style={{ minWidth: '30px', textAlign: 'center' }}>{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(idx, 1)}
+                        style={{
+                          background: 'linear-gradient(45deg, #00b09b, #96c93d)',
+                          border: 'none',
+                          color: '#fff',
+                          padding: '6px 14px',
+                          borderRadius: '8px',
+                          fontSize: '18px',
+                          fontWeight: 'bold',
+                          marginLeft: '8px',
+                          transition: 'transform 0.2s ease',
+                        }}
+                        onMouseEnter={(e) => (e.target.style.transform = 'scale(1.1)')}
+                        onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <span>₹{item.price * item.quantity}</span>
               </li>
             ))}
           </ul>
 
-          <h5 style={{ fontWeight: '700', color: '#ffffff' }}>
-            Total: ₹{calculateTotal()}
-          </h5>
+          <h5 style={{ fontWeight: '700', color: '#ffffff' }}>Total: ₹{calculateTotal()}</h5>
           <button
             onClick={handlePlaceOrder}
             className="btn w-100 mt-3"
@@ -204,18 +252,18 @@ const PlaceOrder = ({ token }) => {
               color: '#fff',
               fontWeight: '700',
               letterSpacing: '1px',
-              padding: '12px 0',
+              padding: '14px 0',
+              fontSize: '18px',
               border: 'none',
+              borderRadius: '10px',
               boxShadow: '0 4px 15px rgba(138, 43, 226, 0.5)',
               transition: 'all 0.3s ease',
             }}
             onMouseOver={(e) =>
-              (e.currentTarget.style.background =
-                'linear-gradient(90deg, #4a00e0 0%, #8e2de2 100%)')
+              (e.currentTarget.style.background = 'linear-gradient(90deg, #4a00e0 0%, #8e2de2 100%)')
             }
             onMouseOut={(e) =>
-              (e.currentTarget.style.background =
-                'linear-gradient(90deg, #8e2de2 0%, #4a00e0 100%)')
+              (e.currentTarget.style.background = 'linear-gradient(90deg, #8e2de2 0%, #4a00e0 100%)')
             }
           >
             Confirm Order

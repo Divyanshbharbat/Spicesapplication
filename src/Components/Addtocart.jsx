@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import {useNavigate} from 'react-router-dom'
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import './AddToCart.css'; // make sure this file exists and is imported
 
 const AddToCart = () => {
-  let navigate=useNavigate()
+  const navigate = useNavigate();
   const [cart, setCart] = useState([]);
   const token = localStorage.getItem('cookie');
 
   useEffect(() => {
-    fetchCart();
-  }, []);
-  useEffect(()=>{
-    let token =localStorage.getItem("cookie")
-    if(!token){
-      navigate("/login")
-    }
-  },[])
+    AOS.init({ duration: 1000 });
 
- const fetchCart = async () => {
-  try {
-    const res = await axios.get(`${import.meta.env.VITE_APP}/api/cart`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    // Ensure res.data.cart is an array
-    if (Array.isArray(res.data.cart)) {
-      setCart(res.data.cart);
-      console.log(res.data.cart)
+    if (!token) {
+      navigate("/login");
     } else {
-      setCart([]);  // fallback empty array
+      fetchCart();
     }
-  } catch (error) {
-    console.error('Fetch cart error:', error);
-    setCart([]);  // fallback empty array on error
-  }
-};
+  }, []);
+
+  const fetchCart = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_APP}/api/cart`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (Array.isArray(res.data.cart)) {
+        setCart(res.data.cart);
+      } else {
+        setCart([]);
+      }
+    } catch (error) {
+      console.error('Fetch cart error:', error);
+      setCart([]);
+    }
+  };
 
   const updateQuantity = async (id, action) => {
     try {
@@ -52,9 +52,6 @@ const AddToCart = () => {
 
   const deleteItem = async (id) => {
     try {
-      // await axios.delete(`http://localhost:3000/api/cart/${id}`, {
-      //   headers: { Authorization: `Bearer ${token}` }
-      // });
       await axios.delete(`${import.meta.env.VITE_APP}/api/cart/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -68,14 +65,13 @@ const AddToCart = () => {
 
   const placeOrder = async () => {
     try {
-      const res = await axios.post(
-        // 'http://localhost:3000/api/order/place',
+      await axios.post(
         `${import.meta.env.VITE_APP}/api/order/place`,
-        
+        {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.success('Order placed successfully!');
-      setCart([]); // Clear cart
+      setCart([]);
     } catch (error) {
       toast.error('Failed to place order');
       console.error('Place order error:', error);
@@ -83,7 +79,7 @@ const AddToCart = () => {
   };
 
   return (
-    <div className="container py-5">
+    <div className="container py-5" data-aos="fade-up">
       <h2 className="text-center fw-bold mb-4">🛒 Your Cart</h2>
 
       {cart.length === 0 ? (
@@ -103,19 +99,23 @@ const AddToCart = () => {
                   <div className="card-body text-center">
                     <h5 className="card-title">{item.name}</h5>
                     <p className="mb-1"><strong>₹{item.price}</strong></p>
-                    <div className="d-flex justify-content-center align-items-center mb-3">
+                    <div className="d-flex justify-content-center align-items-center mb-3 quantity-controls">
                       <button
-                        className="btn btn-sm btn-outline-danger me-2"
+                        className="btn btn-increment-decrement me-3"
                         onClick={() => updateQuantity(item.id, 'decrement')}
                         disabled={item.quantity <= 1}
-                      >-</button>
+                      >
+                        −
+                      </button>
 
-                      <span>{item.quantity}</span>
+                      <span className="quantity-number">{item.quantity}</span>
 
                       <button
-                        className="btn btn-sm btn-outline-success ms-2"
+                        className="btn btn-increment-decrement ms-3"
                         onClick={() => updateQuantity(item.id, 'increment')}
-                      >+</button>
+                      >
+                        +
+                      </button>
                     </div>
                     <button
                       className="btn btn-sm btn-outline-dark"
@@ -130,9 +130,14 @@ const AddToCart = () => {
           </div>
 
           <div className="text-center mt-5">
-          <NavLink to="/placeorder"><button className="btn btn-success px-4 py-2 fw-bold rounded-pill shadow" onClick={placeOrder}>
-              🛍️ Place Order
-            </button></NavLink>
+            <NavLink to="/placeorder">
+              <button
+                className="btn btn-gradient px-4 py-2 fw-bold rounded-pill shadow"
+                onClick={placeOrder}
+              >
+                🛍️ Place Order
+              </button>
+            </NavLink>
           </div>
         </>
       )}

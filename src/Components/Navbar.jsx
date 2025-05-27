@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, Button, Badge } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import axios from 'axios';
+import {toast,Toaster} from 'react-hot-toast'
 import './Navbar.css';
 import { Helmet } from 'react-helmet';
 const AppNavbar = () => {
@@ -28,6 +29,7 @@ const AppNavbar = () => {
   }, [isLoggedIn, storedToken]);
 
   const handleLogout = () => {
+    toast.success("Successfully Logout")
     localStorage.removeItem('cookie');
     setExpanded(false); // close navbar on logout
     navigate('/login');
@@ -38,7 +40,9 @@ const AppNavbar = () => {
   return (
     
     <>
+     <Toaster/>
     <Helmet>
+     
         <title>SpiceShop - Best Organic Spices</title>
         <meta name="description" content="Buy the best organic and fresh spices at SpiceShop. Secure checkout, fast delivery." />
         <meta name="keywords" content="Spices, Organic Spices, Buy Spices Online, Masala, Herbs, Indian Spices" />

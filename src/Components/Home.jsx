@@ -42,7 +42,7 @@ const Home = () => {
   const fetchProducts = async () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_APP}/gethomedata`);
-      console.log(res.data)
+   
       setProducts(res.data);
     } catch (error) {
       console.error('Error fetching products:', error);

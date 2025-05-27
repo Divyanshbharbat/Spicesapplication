@@ -5,6 +5,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Pie } from 'react-chartjs-2';
 import { motion } from 'framer-motion';
+import Meta from './Meta';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -54,6 +55,11 @@ const Landing = () => {
         color: '#222'
       }}
     >
+        <Meta 
+        title="Spice Shop - Home"
+        description="Welcome to the best online spice store. Browse our quality spices."
+        keywords="home, spice shop, online spices"
+      />
       <Container className="text-dark">
 
         {/* Hero Section */}

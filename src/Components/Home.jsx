@@ -85,6 +85,11 @@ const Home = () => {
 
   return (
     <div>
+        <Meta 
+        title="Spice Shop - Explore Our Products"
+        description="Browse and buy from a wide range of premium quality spices. Fast delivery and great prices!"
+        keywords="spices, masala, turmeric, cumin, spice shop, herbs"
+      />
       <Toaster />
 
       <div style={{ padding: '4rem 0', color: 'black' }}>

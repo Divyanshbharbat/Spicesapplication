@@ -28,12 +28,13 @@ app.use(express.urlencoded({ extended: true }));
 //   origin: 'https://firstbitecakeshop.vercel.app', // Replace with your frontend's origin
 //   credentials: true, // Allow cookies and other credentials
 // };
+// app.use(cookieParser());
 // const corsOptions = {
-//   origin: 'http://localhost:5173', // Replace with your frontend's origin
+//   origin: 'http://localhost:5173' || "*", // Replace with your frontend's origin
 //   credentials: true, // Allow cookies and other credentials
 // };
 
-// app.use(cookieParser());
+
 const corsOptions = {
   origin: 'https://spiceswebapplication.vercel.app',
   credentials: true,
@@ -540,8 +541,9 @@ app.delete('/api/cart/:id', jwtMiddleware, async (req, res) => {
 // mongodb://localhost:27017
 // Connect to MongoDB
 // mongoose.connect(process.env.VITE_URLS)
-mongoose.connect(process.env.VITE_URL)
-  .then(() => console.log("MongoDB connected successfully"))
+
+ mongoose.connect(process.env.VITE_URL)
+.then(() => console.log("MongoDB connected successfully"))
   .catch(err => console.error("MongoDB connection error", err));
 
 // Start the Express server

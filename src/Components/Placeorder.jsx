@@ -37,13 +37,6 @@ const PlaceOrder = ({ token }) => {
     return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   };
 
-  const updateQuantity = (index, change) => {
-    const updatedCart = [...cart];
-    updatedCart[index].quantity += change;
-    if (updatedCart[index].quantity < 1) updatedCart[index].quantity = 1;
-    setCart(updatedCart);
-  };
-
   const handlePlaceOrder = async () => {
     if (!username || !email || !address || !phone) {
       Swal.fire('Missing Information', 'Please fill all the fields.', 'warning');
@@ -197,44 +190,10 @@ const PlaceOrder = ({ token }) => {
                   />
                   <div>
                     <div>{item.name}</div>
-                    <div className="mt-1 d-flex align-items-center">
-                      <button
-                        onClick={() => updateQuantity(idx, -1)}
-                        style={{
-                          background: 'linear-gradient(45deg, #ff416c, #ff4b2b)',
-                          border: 'none',
-                          color: '#fff',
-                          padding: '6px 14px',
-                          borderRadius: '8px',
-                          fontSize: '18px',
-                          fontWeight: 'bold',
-                          marginRight: '8px',
-                          transition: 'transform 0.2s ease',
-                        }}
-                        onMouseEnter={(e) => (e.target.style.transform = 'scale(1.1)')}
-                        onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
-                      >
-                        -
-                      </button>
-                      <span style={{ minWidth: '30px', textAlign: 'center' }}>{item.quantity}</span>
-                      <button
-                        onClick={() => updateQuantity(idx, 1)}
-                        style={{
-                          background: 'linear-gradient(45deg, #00b09b, #96c93d)',
-                          border: 'none',
-                          color: '#fff',
-                          padding: '6px 14px',
-                          borderRadius: '8px',
-                          fontSize: '18px',
-                          fontWeight: 'bold',
-                          marginLeft: '8px',
-                          transition: 'transform 0.2s ease',
-                        }}
-                        onMouseEnter={(e) => (e.target.style.transform = 'scale(1.1)')}
-                        onMouseLeave={(e) => (e.target.style.transform = 'scale(1)')}
-                      >
-                        +
-                      </button>
+                    <div className="mt-1">
+                      <span style={{ minWidth: '30px', textAlign: 'center', fontWeight: '600' }}>
+                        Quantity: {item.quantity}
+                      </span>
                     </div>
                   </div>
                 </div>

@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 const corsOptions = {
-  origin: 'https://spiceswebapplication.vercel.app',
+  origin: 'https://sgshop.netlify.app'||"https://spiceswebapplication.vercel.app"||"*",
   credentials: true,
 };
 
